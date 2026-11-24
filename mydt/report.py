@@ -10,7 +10,19 @@ from jinja2 import Template
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
 
+from .reader import safe_name
 from .validate import RULE_TITLES
+
+FORMULA_START = ("=", "+", "-", "@", "\t", "\r")
+
+
+def defuse(df: pd.DataFrame) -> pd.DataFrame:
+    """Stop text from a submission being run as a formula when the file is opened."""
+    out = df.copy()
+    for c in out.columns:
+        if out[c].dtype == object:
+            out[c] = out[c].map(lambda v: "'" + v if isinstance(v, str) and v.startswith(FORMULA_START) else v)
+    return out
 
 KEY_INDICATORS = [
     ("GER_L1", "Gross enrolment ratio, primary (%)"),
@@ -54,12 +66,12 @@ def write_checklists(res, folder: Path):
             result = "FAIL" if n_err else ("REVIEW" if n_warn or n_info else "PASS")
             rows.append({"Rule": rule, "Check": title, "Result": result, "Errors": n_err,
                          "Warnings": n_warn, "Info": n_info, "Analyst comment": "", "Country response": ""})
-        path = folder / f"{s.iso3}_QC_checklist.xlsx"
+        path = folder / f"{safe_name(s.iso3 or s.path.stem)}_QC_checklist.xlsx"
         with pd.ExcelWriter(path, engine="openpyxl") as xw:
             pd.DataFrame(rows).to_excel(xw, sheet_name="Checklist", index=False, startrow=3)
-            flags.drop(columns="iso3").to_excel(xw, sheet_name="Flags", index=False)
+            defuse(flags.drop(columns="iso3")).to_excel(xw, sheet_name="Flags", index=False)
             ws = xw.sheets["Checklist"]
-            ws["A1"] = f"QC checklist - {s.cover.get('COUNTRY')} ({s.iso3}) - survey year {s.cover.get('SURVEY_YEAR')}"
+            ws["A1"] = f"QC checklist - {str(s.cover.get('COUNTRY')).lstrip('=+-@')} ({s.iso3}) - survey year {s.cover.get('SURVEY_YEAR')}"
             ws["A1"].font = Font(bold=True, size=14, color="1F4E79")
             ws["A2"] = f"Status: {status_of(flags)[0]}. Generated {date.today().isoformat()} from {s.path.name}"
             for c in ws[4]:
@@ -145,8 +157,8 @@ def _country_body(iso3, name, channel, flags, ind, prev, survey_year):
     counts = {k: int((flags.severity == k).sum()) for k in ("ERROR", "WARNING", "INFO")}
     e = html.escape
     parts = [f'<p class="sub"><a href="index.html">All countries</a></p>',
-             f"<h1>{e(name)} ({iso3})</h1>",
-             f'<p class="sub">Country indicator review &middot; survey year {survey_year} &middot; '
+             f"<h1>{e(name)} ({e(iso3)})</h1>",
+             f'<p class="sub">Country indicator review &middot; survey year {e(str(survey_year))} &middot; '
              f'source: {"country template" if channel == "template" else "mined from national publications"}</p>',
              f'<span class="badge {cls}">{st}</span>',
              '<div class="cards">' + "".join(
@@ -222,11 +234,12 @@ def write_reports(res, folder: Path, previous: pd.DataFrame | None):
         name = names.get(iso3, iso3)
         sy = sub_by[iso3].cover.get("SURVEY_YEAR") if iso3 in sub_by else "-"
         body = _country_body(iso3, name, channels.get(iso3, "template"), flags, ind, previous, sy)
-        (folder / f"{iso3}_review.html").write_text(
-            TEMPLATE.render(title=f"{name} review", body=body, today=today), encoding="utf-8")
+        fname = f"{safe_name(iso3)}_review.html"
+        (folder / fname).write_text(
+            TEMPLATE.render(title=html.escape(f"{name} review"), body=body, today=today), encoding="utf-8")
         st, cls = status_of(flags)
         index_rows.append(
-            f'<tr><td><a href="{iso3}_review.html">{html.escape(name)}</a></td><td>{iso3}</td>'
+            f'<tr><td><a href="{fname}">{html.escape(name)}</a></td><td>{html.escape(iso3)}</td>'
             f'<td>{"Template" if channels.get(iso3) == "template" else "Mined"}</td>'
             f'<td class="n">{(flags.severity == "ERROR").sum()}</td><td class="n">{(flags.severity == "WARNING").sum()}</td>'
             f'<td class="n">{(flags.severity == "INFO").sum()}</td><td><span class="badge {cls}">{st}</span></td></tr>')

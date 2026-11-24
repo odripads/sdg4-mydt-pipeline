@@ -21,6 +21,7 @@ import streamlit as st
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 from mydt.consolidate import run  # noqa: E402
+from mydt.reader import safe_name  # noqa: E402
 from mydt.report import KEY_INDICATORS, status_of  # noqa: E402
 from mydt.validate import RULE_TITLES  # noqa: E402
 
@@ -49,8 +50,9 @@ def process(payload: tuple[tuple[str, bytes], ...], sample: bool, year: int):
     if sample:
         for p in (ROOT / "data" / "submissions").glob("*.xlsx"):
             shutil.copy(p, subs)
-    for name, blob in payload:
-        (subs / name).write_bytes(blob)
+    for i, (name, blob) in enumerate(payload):
+        stem = safe_name(Path(name).stem)             # never trust an uploaded file name
+        (subs / f"upload_{i:03d}_{stem}.xlsx").write_bytes(blob)
     res = run(data, tmp / "output", int(year))
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:

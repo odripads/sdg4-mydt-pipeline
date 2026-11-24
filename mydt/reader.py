@@ -20,6 +20,7 @@ from . import spec
 OBS_COLUMNS = ["iso3", "survey_year", "table", "level", "age", "grade", "item",
                "sex", "year", "value", "status", "raw", "cell", "source"]
 SEX_RE = re.compile(r"\((F|M|T)\)\s*$")
+ISO3_RE = re.compile(r"[A-Z]{3}")
 
 
 @dataclass
@@ -33,7 +34,18 @@ class Submission:
 
     @property
     def iso3(self) -> str:
-        return str(self.cover.get("ISO3") or "").strip().upper()
+        """Validated ISO3 code, or '' if the cover page holds anything else."""
+        return clean_iso3(self.cover.get("ISO3"))
+
+
+def clean_iso3(v) -> str:
+    s = str(v or "").strip().upper()
+    return s if ISO3_RE.fullmatch(s) else ""
+
+
+def safe_name(s: str) -> str:
+    """Anything used in a file name: letters, digits, _ and - only."""
+    return re.sub(r"[^A-Za-z0-9_-]", "_", str(s))[:40] or "unknown"
 
 
 def parse_value(v):
@@ -83,7 +95,7 @@ def read_template(path) -> Submission:
             key = ws.cell(r, 1).value
             if key:
                 cover[str(key).strip()] = ws.cell(r, 3).value
-    iso3 = str(cover.get("ISO3") or "").strip().upper()
+    iso3 = clean_iso3(cover.get("ISO3"))
     try:
         survey_year = int(cover.get("SURVEY_YEAR"))
     except (TypeError, ValueError):

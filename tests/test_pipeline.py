@@ -119,3 +119,20 @@ def test_outputs_written(workspace):
     for f in ["consolidated/indicators.csv", "consolidated/indicators.dta", "consolidated/sdg4.sqlite",
               "qc/qc_log.csv", "qc/XAB_QC_checklist.xlsx", "reports/index.html", "reports/XAI_review.html"]:
         assert (out / f).exists(), f
+
+
+def test_hostile_submission_is_contained(workspace, tmp_path):
+    """A bad ISO3 code cannot steer output paths, and formulas typed into cells are not run."""
+    root, _ = workspace
+    data = tmp_path / "data"
+    shutil.copytree(root / "data" / "reference", data / "reference")
+    obs, pop, cover, meta = make_country("XAA", "Arcadia", "en", 6, "ARD", seed=1)
+    values = values_from_frame(obs)
+    values[("TEACHERS", "L1", "TCH", "F", 2025)] = '=HYPERLINK("http://example.invalid","x")'
+    write_template(data / "submissions" / "evil.xlsx", {**cover, "ISO3": "../../pwn"}, YEARS, values, "en", meta)
+    res = run(data, tmp_path / "out", survey_year=2026)
+    assert "R00_STRUCTURE" in set(res.qc.rule)
+    assert not list(tmp_path.glob("pwn*")) and not list((tmp_path / "out").rglob("*..*"))
+    flags = pd.read_excel(next((tmp_path / "out" / "qc").glob("*_QC_checklist.xlsx")), sheet_name="Flags")
+    bad = flags[flags.rule == "R01_INVALID"]
+    assert bad.value.astype(str).str.startswith("'=").all()

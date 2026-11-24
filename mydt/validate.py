@@ -12,7 +12,7 @@ import pandas as pd
 import yaml
 
 from . import spec
-from .reader import Submission
+from .reader import Submission, safe_name
 
 RULES_PATH = Path(__file__).resolve().parent.parent / "config" / "rules.yaml"
 FLAG_COLUMNS = ["iso3", "rule", "severity", "table", "level", "sex", "year",
@@ -62,13 +62,13 @@ def _range(cells: pd.Series) -> str:
 def validate_submission(sub: Submission, ref_pop: pd.DataFrame | None = None,
                         rules: dict | None = None, expected_survey_year: int | None = None) -> pd.DataFrame:
     rules = rules or load_rules()
-    iso3 = sub.iso3 or sub.path.stem
+    iso3 = sub.iso3 or safe_name(sub.path.stem)
     d = sub.data
     F = []
 
     # R00 structure
     if not sub.iso3:
-        F.append(_flag(iso3, "R00_STRUCTURE", "ERROR", "Country code (ISO3) missing on COVER", cell="COVER!C6"))
+        F.append(_flag(iso3, "R00_STRUCTURE", "ERROR", "Country code (ISO3) missing or not three letters on COVER", cell="COVER!C6"))
     sy = sub.cover.get("SURVEY_YEAR")
     if expected_survey_year and str(sy) != str(expected_survey_year):
         F.append(_flag(iso3, "R00_STRUCTURE", "ERROR",

@@ -84,9 +84,12 @@ def run(data_dir, out_dir, survey_year: int | None = None, reports: bool = True)
     obs_t.to_csv(cons / "obs_templates.csv", index=False)
     obs_m.to_csv(cons / "obs_mined.csv", index=False)
     ind.to_csv(cons / "indicators.csv", index=False)
-    ind.assign(level=ind.level.fillna(""), sex=ind.sex.fillna("")).to_stata(
+    ind.assign(level=ind.level.fillna("").astype(str), sex=ind.sex.fillna("").astype(str),
+               value=pd.to_numeric(ind.value, errors="coerce").astype(float),
+               year=ind.year.astype(int)).to_stata(
         cons / "indicators.dta", write_index=False, version=118)
-    qc.to_csv(qcd / "qc_log.csv", index=False)
+    from .report import defuse
+    defuse(qc).to_csv(qcd / "qc_log.csv", index=False)
     db = cons / "sdg4.sqlite"
     db.unlink(missing_ok=True)
     with sqlite3.connect(db) as con:
