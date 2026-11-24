@@ -1,0 +1,22 @@
+iso3,expected_rule,description
+XAB,R05_AGE_GRADE,"L2 2024: grade table 1,500 higher than age table"
+XAC,R04_SEX_SUM,"ENRL_AGE L1 age 8, 2025: T is not F + M"
+XAC,R05_AGE_GRADE,same cell makes age table total disagree with grade table
+XAD,R02_NEGATIVE,ENRL_GRADE L3 G11 M 2023 is negative
+XAD,R01_INVALID,TEACHERS L1 TCH F 2025 contains text
+XAD,R04_SEX_SUM,consequence of the negative value: F + M != T
+XAD,R05_AGE_GRADE,consequence of the negative value: grade total too low
+XAD,R09_REPEATERS,consequence of the negative value: repeaters above (negative) pupils
+XAE,R06_COHORT,"ENRL_AGE L1 age 9, 2024 is a tenth of the cohort"
+XAE,R05_AGE_GRADE,consequence: age table no longer matches grade table
+XAE,R15_REVISION,consequence: 2024 primary indicators fall sharply vs last release
+XAF,R07_POP_EXCEEDED,"L1 age 8, 2025 doubled: enrolment above population"
+XAF,R06_COHORT,consequence: age 7 -> 8 cohort doubles
+XAF,R14_IND_RANGE,consequence: primary net enrolment rate above 100%
+XAF,R08_YOY,consequence: primary enrolment jumps over 20% in 2025
+XAG,R11_METADATA,No source given for ENRL_GRADE
+XAG,R10_FIN,2025 expenditure by level exceeds total education expenditure
+XAH,R09_REPEATERS,L1 G3 2025: more repeaters than pupils
+XAH,R08_YOY,L3 enrolment up 45% in 2025
+XAH,R05_AGE_GRADE,consequence: rounding the inflated rows leaves totals 1-2 pupils apart
+XAA,R15_REVISION,previous release GER_L2 2023 was 6 points lower

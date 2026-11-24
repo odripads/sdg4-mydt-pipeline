@@ -1,0 +1,22 @@
+# Validation thresholds. Change numbers here, not in code.
+# Severity: ERROR = must be fixed by the country before the data are used.
+#           WARNING = plausible but unusual; needs an explanation or a fix.
+#           INFO = for the analyst's attention only.
+
+age_grade_tolerance: 0        # pupils; age and grade totals must match exactly
+sex_sum_tolerance: 0          # pupils; F + M must equal T
+cohort:
+  min_ratio: 0.80             # enrolled at age a+1 in t+1 / enrolled at age a in t
+  max_ratio: 1.20
+  min_base: 500               # ignore small cells
+  ages_from_entrance: [0, 5]  # primary ages only; transition to secondary has real drop-out
+yoy_max_change: 0.20          # level total, year on year
+pop_tolerance: 0.005          # template POP sheet vs reference population (relative)
+indicator_ranges:
+  GER: [0, 150]
+  NERT: [0, 100]
+  PTR: [5, 80]
+  TRTP: [0, 100]
+  XGDP: [0.5, 12]
+  XGOVEXP: [3, 30]
+revision_pp: 3.0              # flag indicator revisions larger than this vs previous release

@@ -1,0 +1,290 @@
+# Visible labels for the templates, one block per language.
+# Codes (sheet names, L1, G7, F, XEXP_EDU...) never change between languages,
+# so the same reader parses every language version.
+# Machine-assisted translations: a native-speaking reviewer should check them
+# before templates go to countries.
+
+en:
+  year: Year
+  sex: {F: Female (F), M: Male (M), T: Total (T)}
+  titles:
+    COVER: Cover page and respondent details
+    METADATA: Sources and metadata for each table
+    ENRL_AGE: Enrolment by level of education, age and sex
+    ENRL_GRADE: Enrolment by level of education, grade and sex
+    REPEATERS: Repeaters by level of education, grade and sex
+    TEACHERS: Teachers by level of education and sex
+    FIN: Education finance (millions, national currency)
+    POP: School-age population by single age (pre-filled, UN population estimates)
+    CHECKS: Automatic validation checks
+  instructions:
+    data: Enter whole numbers. If a value is not available, enter m (missing), a (not applicable), x (included elsewhere) or n (nil). Yellow columns are the new year to complete.
+    prefilled: Pre-filled by the UIS. Do not edit. Contact the UIS if you think a figure is wrong.
+    checks: Every status cell should read OK before you submit. CHECK means two tables disagree.
+  validation_error: Enter a number of zero or more, or one of the codes m, a, x, n.
+  codes:
+    L1: Primary education (ISCED 1)
+    L2: Lower secondary education (ISCED 2)
+    L3: Upper secondary education (ISCED 3)
+    "<5": Under 5
+    "21+": 21 and over
+    UNK: Age unknown
+    TCH: Teachers, total
+    TCH_TRAINED: Teachers with minimum required training
+    XEXP_L1: Government expenditure on primary education
+    XEXP_L2: Government expenditure on lower secondary education
+    XEXP_L3: Government expenditure on upper secondary education
+    XEXP_EDU: Government expenditure on education, all levels
+    XEXP_GOV: Total government expenditure, all sectors
+    GDP: Gross domestic product
+    POP: Population
+  cover:
+    ISO3: ISO 3166 country code
+    COUNTRY: Country
+    SURVEY_YEAR: Survey year
+    LANG: Template language
+    CURRENCY: National currency
+    ENTRANCE_AGE: Official entrance age, primary
+    RESP_NAME: Respondent name
+    RESP_EMAIL: Respondent email
+    SUBMIT_DATE: Submission date
+  metadata:
+    TABLE: Table
+    SOURCE: Data source
+    REF_DATE: Reference date
+    COVERAGE: Coverage (public, private)
+    NOTES: Notes
+  checks:
+    AGE_TOT: Total enrolment from the age table
+    GRADE_TOT: Total enrolment from the grade table
+    DIFF: Difference
+    SEXSUM: Female + Male - Total (age table)
+    STATUS: Status
+
+fr:
+  year: Année
+  sex: {F: Femmes (F), M: Hommes (M), T: Total (T)}
+  titles:
+    COVER: Page de garde et coordonnées du répondant
+    METADATA: Sources et métadonnées de chaque tableau
+    ENRL_AGE: Effectifs par niveau d'enseignement, âge et sexe
+    ENRL_GRADE: Effectifs par niveau d'enseignement, année d'études et sexe
+    REPEATERS: Redoublants par niveau d'enseignement, année d'études et sexe
+    TEACHERS: Enseignants par niveau d'enseignement et sexe
+    FIN: Financement de l'éducation (millions, monnaie nationale)
+    POP: Population d'âge scolaire par âge simple (pré-remplie, estimations démographiques des Nations Unies)
+    CHECKS: Contrôles de validation automatiques
+  instructions:
+    data: Saisir des nombres entiers. Si une valeur n'est pas disponible, saisir m (manquant), a (sans objet), x (inclus ailleurs) ou n (néant). Les colonnes jaunes correspondent à la nouvelle année à remplir.
+    prefilled: Pré-rempli par l'ISU. Ne pas modifier. Contactez l'ISU si un chiffre vous semble erroné.
+    checks: Toutes les cellules d'état doivent indiquer OK avant l'envoi. CHECK signifie que deux tableaux ne concordent pas.
+  validation_error: Saisir un nombre supérieur ou égal à zéro, ou l'un des codes m, a, x, n.
+  codes:
+    L1: Enseignement primaire (CITE 1)
+    L2: Premier cycle de l'enseignement secondaire (CITE 2)
+    L3: Deuxième cycle de l'enseignement secondaire (CITE 3)
+    "<5": Moins de 5 ans
+    "21+": 21 ans et plus
+    UNK: Âge inconnu
+    TCH: Enseignants, total
+    TCH_TRAINED: Enseignants ayant la formation minimale requise
+    XEXP_L1: Dépenses publiques pour l'enseignement primaire
+    XEXP_L2: Dépenses publiques pour le premier cycle du secondaire
+    XEXP_L3: Dépenses publiques pour le deuxième cycle du secondaire
+    XEXP_EDU: Dépenses publiques d'éducation, tous niveaux
+    XEXP_GOV: Dépenses publiques totales, tous secteurs
+    GDP: Produit intérieur brut
+    POP: Population
+  cover:
+    ISO3: Code pays ISO 3166
+    COUNTRY: Pays
+    SURVEY_YEAR: Année de l'enquête
+    LANG: Langue du modèle
+    CURRENCY: Monnaie nationale
+    ENTRANCE_AGE: Âge officiel d'entrée au primaire
+    RESP_NAME: Nom du répondant
+    RESP_EMAIL: Courriel du répondant
+    SUBMIT_DATE: Date d'envoi
+  metadata:
+    TABLE: Tableau
+    SOURCE: Source des données
+    REF_DATE: Date de référence
+    COVERAGE: Couverture (public, privé)
+    NOTES: Notes
+  checks:
+    AGE_TOT: Effectif total selon le tableau par âge
+    GRADE_TOT: Effectif total selon le tableau par année d'études
+    DIFF: Écart
+    SEXSUM: Femmes + Hommes - Total (tableau par âge)
+    STATUS: État
+
+es:
+  year: Año
+  sex: {F: Mujeres (F), M: Hombres (M), T: Total (T)}
+  titles:
+    COVER: Portada y datos del encuestado
+    METADATA: Fuentes y metadatos de cada cuadro
+    ENRL_AGE: Matrícula por nivel educativo, edad y sexo
+    ENRL_GRADE: Matrícula por nivel educativo, grado y sexo
+    REPEATERS: Repitentes por nivel educativo, grado y sexo
+    TEACHERS: Docentes por nivel educativo y sexo
+    FIN: Financiamiento de la educación (millones, moneda nacional)
+    POP: Población en edad escolar por edad simple (precargada, estimaciones de población de las Naciones Unidas)
+    CHECKS: Controles de validación automáticos
+  instructions:
+    data: Ingrese números enteros. Si un valor no está disponible, ingrese m (faltante), a (no aplicable), x (incluido en otra categoría) o n (nulo). Las columnas amarillas corresponden al nuevo año por completar.
+    prefilled: Precargado por el IEU. No modificar. Contacte al IEU si cree que una cifra es incorrecta.
+    checks: Todas las celdas de estado deben indicar OK antes del envío. CHECK significa que dos cuadros no coinciden.
+  validation_error: Ingrese un número igual o mayor que cero, o uno de los códigos m, a, x, n.
+  codes:
+    L1: Educación primaria (CINE 1)
+    L2: Educación secundaria baja (CINE 2)
+    L3: Educación secundaria alta (CINE 3)
+    "<5": Menos de 5 años
+    "21+": 21 años y más
+    UNK: Edad desconocida
+    TCH: Docentes, total
+    TCH_TRAINED: Docentes con la formación mínima requerida
+    XEXP_L1: Gasto público en educación primaria
+    XEXP_L2: Gasto público en educación secundaria baja
+    XEXP_L3: Gasto público en educación secundaria alta
+    XEXP_EDU: Gasto público en educación, todos los niveles
+    XEXP_GOV: Gasto público total, todos los sectores
+    GDP: Producto interno bruto
+    POP: Población
+  cover:
+    ISO3: Código de país ISO 3166
+    COUNTRY: País
+    SURVEY_YEAR: Año de la encuesta
+    LANG: Idioma de la plantilla
+    CURRENCY: Moneda nacional
+    ENTRANCE_AGE: Edad oficial de ingreso a primaria
+    RESP_NAME: Nombre del encuestado
+    RESP_EMAIL: Correo electrónico del encuestado
+    SUBMIT_DATE: Fecha de envío
+  metadata:
+    TABLE: Cuadro
+    SOURCE: Fuente de los datos
+    REF_DATE: Fecha de referencia
+    COVERAGE: Cobertura (pública, privada)
+    NOTES: Notas
+  checks:
+    AGE_TOT: Matrícula total según el cuadro por edad
+    GRADE_TOT: Matrícula total según el cuadro por grado
+    DIFF: Diferencia
+    SEXSUM: Mujeres + Hombres - Total (cuadro por edad)
+    STATUS: Estado
+
+pt:
+  year: Ano
+  sex: {F: Mulheres (F), M: Homens (M), T: Total (T)}
+  titles:
+    COVER: Capa e dados do respondente
+    METADATA: Fontes e metadados de cada tabela
+    ENRL_AGE: Matrículas por nível de ensino, idade e sexo
+    ENRL_GRADE: Matrículas por nível de ensino, série/ano e sexo
+    REPEATERS: Repetentes por nível de ensino, série/ano e sexo
+    TEACHERS: Professores por nível de ensino e sexo
+    FIN: Financiamento da educação (milhões, moeda nacional)
+    POP: População em idade escolar por idade simples (pré-preenchida, estimativas populacionais das Nações Unidas)
+    CHECKS: Verificações automáticas de validação
+  instructions:
+    data: Insira números inteiros. Se um valor não estiver disponível, insira m (em falta), a (não aplicável), x (incluído noutra categoria) ou n (nulo). As colunas amarelas são o novo ano a preencher.
+    prefilled: Pré-preenchido pelo IEU. Não editar. Contacte o IEU se considerar que algum valor está incorreto.
+    checks: Todas as células de estado devem indicar OK antes do envio. CHECK significa que duas tabelas não coincidem.
+  validation_error: Insira um número igual ou superior a zero, ou um dos códigos m, a, x, n.
+  codes:
+    L1: Ensino primário (CITE 1)
+    L2: Primeiro ciclo do ensino secundário (CITE 2)
+    L3: Segundo ciclo do ensino secundário (CITE 3)
+    "<5": Menos de 5 anos
+    "21+": 21 anos ou mais
+    UNK: Idade desconhecida
+    TCH: Professores, total
+    TCH_TRAINED: Professores com a formação mínima exigida
+    XEXP_L1: Despesa pública com o ensino primário
+    XEXP_L2: Despesa pública com o primeiro ciclo do secundário
+    XEXP_L3: Despesa pública com o segundo ciclo do secundário
+    XEXP_EDU: Despesa pública com a educação, todos os níveis
+    XEXP_GOV: Despesa pública total, todos os setores
+    GDP: Produto interno bruto
+    POP: População
+  cover:
+    ISO3: Código do país ISO 3166
+    COUNTRY: País
+    SURVEY_YEAR: Ano do inquérito
+    LANG: Idioma do modelo
+    CURRENCY: Moeda nacional
+    ENTRANCE_AGE: Idade oficial de entrada no primário
+    RESP_NAME: Nome do respondente
+    RESP_EMAIL: E-mail do respondente
+    SUBMIT_DATE: Data de envio
+  metadata:
+    TABLE: Tabela
+    SOURCE: Fonte dos dados
+    REF_DATE: Data de referência
+    COVERAGE: Cobertura (público, privado)
+    NOTES: Notas
+  checks:
+    AGE_TOT: Total de matrículas segundo a tabela por idade
+    GRADE_TOT: Total de matrículas segundo a tabela por série/ano
+    DIFF: Diferença
+    SEXSUM: Mulheres + Homens - Total (tabela por idade)
+    STATUS: Estado
+
+ru:
+  year: Год
+  sex: {F: Женщины (F), M: Мужчины (M), T: Всего (T)}
+  titles:
+    COVER: Титульный лист и сведения о респонденте
+    METADATA: Источники и метаданные по каждой таблице
+    ENRL_AGE: Численность учащихся по уровню образования, возрасту и полу
+    ENRL_GRADE: Численность учащихся по уровню образования, классу и полу
+    REPEATERS: Второгодники по уровню образования, классу и полу
+    TEACHERS: Учителя по уровню образования и полу
+    FIN: Финансирование образования (млн, национальная валюта)
+    POP: Население школьного возраста по однолетним группам (заполнено заранее, оценки ООН)
+    CHECKS: Автоматические проверки
+  instructions:
+    data: Вводите целые числа. Если значение отсутствует, введите m (нет данных), a (не применимо), x (включено в другую категорию) или n (ноль). Жёлтые столбцы — новый год для заполнения.
+    prefilled: Заполнено ИСЮ. Не изменять. Если вы считаете, что значение неверно, свяжитесь с ИСЮ.
+    checks: Перед отправкой во всех ячейках статуса должно быть OK. CHECK означает расхождение между двумя таблицами.
+  validation_error: Введите число не меньше нуля или один из кодов m, a, x, n.
+  codes:
+    L1: Начальное образование (МСКО 1)
+    L2: Первый этап среднего образования (МСКО 2)
+    L3: Второй этап среднего образования (МСКО 3)
+    "<5": Младше 5 лет
+    "21+": 21 год и старше
+    UNK: Возраст неизвестен
+    TCH: Учителя, всего
+    TCH_TRAINED: Учителя с минимально необходимой подготовкой
+    XEXP_L1: Государственные расходы на начальное образование
+    XEXP_L2: Государственные расходы на первый этап среднего образования
+    XEXP_L3: Государственные расходы на второй этап среднего образования
+    XEXP_EDU: Государственные расходы на образование, все уровни
+    XEXP_GOV: Общие государственные расходы, все сектора
+    GDP: Валовой внутренний продукт
+    POP: Население
+  cover:
+    ISO3: Код страны ISO 3166
+    COUNTRY: Страна
+    SURVEY_YEAR: Год обследования
+    LANG: Язык шаблона
+    CURRENCY: Национальная валюта
+    ENTRANCE_AGE: Официальный возраст поступления в начальную школу
+    RESP_NAME: Имя респондента
+    RESP_EMAIL: Электронная почта респондента
+    SUBMIT_DATE: Дата отправки
+  metadata:
+    TABLE: Таблица
+    SOURCE: Источник данных
+    REF_DATE: Дата, на которую приведены данные
+    COVERAGE: Охват (государственные, частные)
+    NOTES: Примечания
+  checks:
+    AGE_TOT: Всего учащихся по таблице по возрасту
+    GRADE_TOT: Всего учащихся по таблице по классам
+    DIFF: Разница
+    SEXSUM: Женщины + Мужчины - Всего (таблица по возрасту)
+    STATUS: Статус
