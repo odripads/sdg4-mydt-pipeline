@@ -133,6 +133,9 @@ def test_hostile_submission_is_contained(workspace, tmp_path):
     res = run(data, tmp_path / "out", survey_year=2026)
     assert "R00_STRUCTURE" in set(res.qc.rule)
     assert not list(tmp_path.glob("pwn*")) and not list((tmp_path / "out").rglob("*..*"))
-    flags = pd.read_excel(next((tmp_path / "out" / "qc").glob("*_QC_checklist.xlsx")), sheet_name="Flags")
+    sheet = tmp_path / "out" / "qc" / "INVALID_evil_QC_checklist.xlsx"
+    flags = pd.read_excel(sheet, sheet_name="Flags")
+    assert {"R00_STRUCTURE", "R01_INVALID"} <= set(flags.rule)
     bad = flags[flags.rule == "R01_INVALID"]
+    assert len(bad)
     assert bad.value.astype(str).str.startswith("'=").all()

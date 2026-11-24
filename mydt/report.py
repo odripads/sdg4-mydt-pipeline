@@ -58,7 +58,7 @@ def write_checklists(res, folder: Path):
              "FAIL": PatternFill("solid", fgColor="F8CBAD"),
              "REVIEW": PatternFill("solid", fgColor="FFF2CC")}
     for s in res.submissions:
-        flags = res.qc[res.qc.iso3 == s.iso3]
+        flags = res.qc[res.qc.iso3 == s.key]
         rows = []
         for rule, title in RULE_TITLES.items():
             f = flags[flags.rule == rule]
@@ -66,7 +66,7 @@ def write_checklists(res, folder: Path):
             result = "FAIL" if n_err else ("REVIEW" if n_warn or n_info else "PASS")
             rows.append({"Rule": rule, "Check": title, "Result": result, "Errors": n_err,
                          "Warnings": n_warn, "Info": n_info, "Analyst comment": "", "Country response": ""})
-        path = folder / f"{safe_name(s.iso3 or s.path.stem)}_QC_checklist.xlsx"
+        path = folder / f"{safe_name(s.key)}_QC_checklist.xlsx"
         with pd.ExcelWriter(path, engine="openpyxl") as xw:
             pd.DataFrame(rows).to_excel(xw, sheet_name="Checklist", index=False, startrow=3)
             defuse(flags.drop(columns="iso3")).to_excel(xw, sheet_name="Flags", index=False)

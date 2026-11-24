@@ -37,6 +37,11 @@ class Submission:
         """Validated ISO3 code, or '' if the cover page holds anything else."""
         return clean_iso3(self.cover.get("ISO3"))
 
+    @property
+    def key(self) -> str:
+        """Identifier used for flags and file names; never collides with a real ISO3."""
+        return self.iso3 or "INVALID_" + safe_name(self.path.stem)
+
 
 def clean_iso3(v) -> str:
     s = str(v or "").strip().upper()
